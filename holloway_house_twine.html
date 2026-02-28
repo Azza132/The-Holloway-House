@@ -1,0 +1,1028 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<title>The Holloway House</title>
+</head>
+<body>
+
+<tw-storydata name="The Holloway House" startnode="1" creator="Twine" creator-version="2.3.16"
+  ifid="7A3F9C2E-B41D-4E8A-9F06-C3D5A8E12B74"
+  zoom="0.8" format="Harlowe" format-version="3.3.7" options="" hidden>
+
+<style role="stylesheet" id="twine-user-stylesheet" type="text/twine-css">
+@import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Special+Elite&display=swap');
+
+:root {
+  --bg: #0a0806;
+  --paper: #12100e;
+  --text: #c9b99a;
+  --accent: #8b2e2e;
+  --dim: #6b5c47;
+  --bright: #e8d5b0;
+  --link: #c0764a;
+  --link-hover: #e89a6a;
+}
+
+tw-story {
+  background: var(--bg) !important;
+  font-family: 'IM Fell English', Georgia, serif !important;
+}
+
+tw-passage {
+  background: transparent !important;
+  color: var(--text) !important;
+  font-family: 'IM Fell English', Georgia, serif !important;
+  font-size: 1.05rem !important;
+  line-height: 1.9 !important;
+  max-width: 720px !important;
+  margin: 0 auto !important;
+  padding: 40px 30px 80px !important;
+}
+
+tw-passage p {
+  margin-bottom: 1.2em;
+}
+
+tw-passage em {
+  color: var(--dim) !important;
+}
+
+tw-link, .enchantment-link {
+  color: var(--link) !important;
+  font-family: 'IM Fell English', serif !important;
+  text-decoration: none !important;
+  border-bottom: 1px solid #3a2010 !important;
+  transition: color 0.2s, border-color 0.2s !important;
+  display: block !important;
+  padding: 10px 10px 10px 24px !important;
+  margin: 6px 0 !important;
+  border: 1px solid #3a2a1a !important;
+  border-bottom: 1px solid #3a2a1a !important;
+  position: relative !important;
+}
+
+tw-link::before, .enchantment-link::before {
+  content: '›' !important;
+  position: absolute !important;
+  left: 10px !important;
+  color: var(--accent) !important;
+}
+
+tw-link:hover, .enchantment-link:hover {
+  color: var(--link-hover) !important;
+  background: #1a1008 !important;
+  border-color: var(--accent) !important;
+}
+
+#tw-title-bar, .tw-title-bar { display: none !important; }
+
+.passage-title {
+  font-family: 'Special Elite', cursive !important;
+  color: var(--accent) !important;
+  letter-spacing: 0.12em !important;
+  text-transform: uppercase !important;
+  font-size: 1rem !important;
+  border-bottom: 1px solid #2a1a1a !important;
+  padding-bottom: 8px !important;
+  margin-bottom: 20px !important;
+}
+
+.passage-img {
+  width: 100% !important;
+  max-height: 280px !important;
+  object-fit: cover !important;
+  margin-bottom: 20px !important;
+  opacity: 0.85 !important;
+  filter: sepia(0.4) brightness(0.8) contrast(1.1) !important;
+  border: 1px solid #2a2018 !important;
+}
+
+.passage-gif {
+  width: 100% !important;
+  max-height: 220px !important;
+  object-fit: cover !important;
+  margin-bottom: 20px !important;
+  opacity: 0.9 !important;
+  filter: sepia(0.3) brightness(0.75) contrast(1.15) !important;
+  border: 1px solid #3a1a1a !important;
+}
+
+.inventory-bar {
+  font-family: 'Special Elite', cursive !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.12em !important;
+  color: var(--dim) !important;
+  border-top: 1px solid #1a1410 !important;
+  padding-top: 8px !important;
+  margin-top: 24px !important;
+  text-transform: uppercase !important;
+}
+
+.inventory-bar span {
+  border: 1px solid #3a2a1a !important;
+  padding: 1px 7px !important;
+  margin: 2px !important;
+  display: inline-block !important;
+  color: var(--bright) !important;
+}
+
+.credit {
+  font-family: 'Special Elite', cursive !important;
+  color: #3a3028 !important;
+  font-size: 0.7rem !important;
+  letter-spacing: 0.1em !important;
+  text-align: center !important;
+  margin-top: 32px !important;
+  border-top: 1px solid #1a1410 !important;
+  padding-top: 12px !important;
+}
+
+.warning-text {
+  color: var(--accent) !important;
+  font-style: italic !important;
+}
+
+.ending-box {
+  border: 1px solid #3a2a1a !important;
+  padding: 16px !important;
+  margin-top: 20px !important;
+  font-family: 'Special Elite', cursive !important;
+  color: var(--dim) !important;
+  font-size: 0.85rem !important;
+  letter-spacing: 0.08em !important;
+  text-align: center !important;
+}
+</style>
+
+<script role="script" id="twine-user-script" type="text/twine-javascript">
+/* The Holloway House — Story JavaScript */
+/* Inventory & flag tracking via State */
+</script>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 1: START -->
+<!-- ============================================================ -->
+<tw-passagedata pid="1" name="Start" tags="" position="200,200" size="100,100">
+<div class="passage-title">Arrival</div>
+<img class="passage-img" src="https://images.unsplash.com/photo-1518780664697-55e3ad937233?w=800&q=70" alt="Dark Victorian house at night" />
+
+The cab drops you at the iron gate just as the last light bleeds from the sky.
+
+Holloway House looms at the end of a gravel path — a Victorian pile of black stone, boarded windows, and a widow's walk that vanishes into fog. Your aunt Vera left it to you. She left you nothing else: no note, no explanation, just a key and a lawyer's cold handshake.
+
+*The gate is already unlocked. That's the first thing that's wrong.*
+
+The gravel crunches beneath your feet. Somewhere in the dead garden, something shifts.
+
+(set: $inventory to (a:))(set: $flags to (dm:))
+
+[[Walk directly to the front door->Front Door]]
+[[Check the garden first->Garden]]
+[[Examine the gate more carefully->Examine Gate]]
+
+<div class="credit">Created by Aaron Sermon</div>
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 2: EXAMINE GATE -->
+<!-- ============================================================ -->
+<tw-passagedata pid="2" name="Examine Gate" tags="" position="100,350" size="100,100">
+<div class="passage-title">The Iron Gate</div>
+<img class="passage-gif" src="https://media.giphy.com/media/l0HlHFRbmaZtBRhXG/giphy.gif" alt="Creepy iron gate" />
+
+You study the gate. The padlock hangs open — but not forced. Someone had a key.
+
+Scratched into the rust on the left post, barely legible: *"DON'T GO IN AFTER DARK."*
+
+It's already dark.
+
+Below those words, someone scratched a second message in fresher metal: *"She's still inside."*
+
+Your aunt Vera died six months ago. The house has been empty.
+
+(set: $flags's gateSeen to true)
+
+[[Walk to the front door->Front Door]]
+[[Check the garden->Garden]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 3: GARDEN -->
+<!-- ============================================================ -->
+<tw-passagedata pid="3" name="Garden" tags="" position="300,350" size="100,100">
+<div class="passage-title">The Dead Garden</div>
+<img class="passage-img" src="https://images.unsplash.com/photo-1509128841709-d0d85a81b10f?w=800&q=70" alt="Dark overgrown garden" />
+
+The garden is a graveyard of roses — black thorns, no blooms. The soil is disturbed in a long, narrow trench near the old oak tree. Too narrow for a grave, you tell yourself.
+
+Near the trench you find a rusted trowel and a small tin box half-buried in the dirt. Inside: a photograph of your aunt as a young woman, standing in front of the house. She's smiling. Standing next to her is a man you don't recognise.
+
+On the back of the photograph, her handwriting: *"Edmund knows. Don't trust the mirror."*
+
+You hear a sound from inside the house — a single, low creak.
+
+[[Take the photograph and go to the front door->Front Door][(set: $inventory to it + (a:"Photograph"))]]
+[[Investigate the trench->Garden Trench]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 4: GARDEN TRENCH -->
+<!-- ============================================================ -->
+<tw-passagedata pid="4" name="Garden Trench" tags="" position="400,450" size="100,100">
+<div class="passage-title">The Trench</div>
+<img class="passage-gif" src="https://media.giphy.com/media/xT9IgG50Lg7rusJxnm/giphy.gif" alt="Dark foggy atmosphere" />
+
+You crouch beside the trench. It's about two feet deep — and at the bottom, wrapped in oilcloth, is a bundle of papers.
+
+You pull it free. Inside: pages torn from a journal, dated three years ago, in your aunt's handwriting. Most are water-damaged and illegible, but one line survives intact:
+
+*"The thing wearing Edmund's face has been here for twenty years. I've let it in for twenty years."*
+
+The house groans above you. A light — dim and amber — appears in an upstairs window.
+
+*The house is supposed to be empty.*
+
+[[Take the journal pages and approach the front door->Front Door][(set: $inventory to it + (a:"Journal Pages"))]]
+[[Leave. This was a mistake.->Ending Leave]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 5: FRONT DOOR -->
+<!-- ============================================================ -->
+<tw-passagedata pid="5" name="Front Door" tags="" position="200,500" size="100,100">
+<div class="passage-title">The Front Door</div>
+<img class="passage-img" src="https://images.unsplash.com/photo-1534430480872-3498386e7856?w=800&q=70" alt="Dark ornate front door" />
+
+The front door is enormous — black oak, with a tarnished brass knocker shaped like a crow. The key the lawyer gave you fits perfectly. The lock turns with a sound like a held breath releasing.
+
+The smell that escapes is old paper, damp stone, and something else. Something animal.
+
+The entrance hall stretches before you: a grand staircase rising into shadow, a hallway leading left toward the kitchen, a door on your right marked with peeling paint — the drawing room.
+
+A grandfather clock at the base of the stairs has stopped. The hands point to 3:17.
+
+(set: $flags's enteredHouse to true)
+
+[[Go upstairs->Upstairs Landing]]
+[[Enter the drawing room->Drawing Room]]
+[[Go toward the kitchen->Kitchen]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 6: DRAWING ROOM -->
+<!-- ============================================================ -->
+<tw-passagedata pid="6" name="Drawing Room" tags="" position="100,650" size="100,100">
+<div class="passage-title">The Drawing Room</div>
+<img class="passage-img" src="https://images.unsplash.com/photo-1555041469-a586c61ea9bc?w=800&q=70" alt="Dark Victorian drawing room" />
+
+Heavy drapes block any outside light. You find a lamp and click it on — the bulb flickers, holds.
+
+The room is frozen in time: teacups still on a silver tray, a half-finished game of solitaire on the card table, a shawl draped over the arm of a wingback chair as though someone just stepped away.
+
+Above the fireplace hangs a large mirror in a gilt frame. You look into it.
+
+Your reflection looks back — but half a second late. Just a half second. You blink. The delay is gone.
+
+*Or was it ever there?*
+
+On the mantelpiece: a key with a red ribbon, and a folded note.
+
+[[Take the red-ribbon key and read the note->Drawing Room Note][(set: $inventory to it + (a:"Red Key"))]]
+[[Examine the mirror more closely->Mirror Examine]]
+[[Leave and go upstairs->Upstairs Landing]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 7: MIRROR EXAMINE -->
+<!-- ============================================================ -->
+<tw-passagedata pid="7" name="Mirror Examine" tags="" position="50,800" size="100,100">
+<div class="passage-title">The Mirror</div>
+<img class="passage-gif" src="https://media.giphy.com/media/3o7TKoVM9XFPhlQPna/giphy.gif" alt="Creepy mirror animation" />
+
+You lean close to the mirror. Your breath fogs the glass.
+
+When the fog clears, there's a word written in it from the other side — backwards, as though someone on the other side wrote it for you to read:
+
+*BELOW*
+
+Then it fades. The mirror shows only your face: pale, wide-eyed, looking very much like someone who should leave.
+
+You notice a hairline crack running down the left side of the mirror's frame. Behind the crack, something is wedged — a small brass key, tarnished green.
+
+(set: $flags's sawMirrorMessage to true)
+
+[[Take the brass key->Mirror Key Taken][(set: $inventory to it + (a:"Brass Key"))]]
+[[Back away and go to the kitchen->Kitchen]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 8: MIRROR KEY TAKEN -->
+<!-- ============================================================ -->
+<tw-passagedata pid="8" name="Mirror Key Taken" tags="" position="50,950" size="100,100">
+<div class="passage-title">The Mirror Key</div>
+
+The brass key comes free with a twist. It's cold — far colder than the room.
+
+Engraved on it: *CELLAR*.
+
+The mirror behind you reflects the room perfectly. No delay. No words. Just your back, and the room, and the stillness pressing in from all sides.
+
+[[Read the note on the mantelpiece->Drawing Room Note]]
+[[Go find the cellar->Kitchen]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 9: DRAWING ROOM NOTE -->
+<!-- ============================================================ -->
+<tw-passagedata pid="9" name="Drawing Room Note" tags="" position="200,800" size="100,100">
+<div class="passage-title">Vera's Note</div>
+<img class="passage-img" src="https://images.unsplash.com/photo-1586773860418-d37222d8fce3?w=800&q=70" alt="Handwritten note on aged paper" />
+
+The note is in your aunt's handwriting, but hurried — nearly frantic:
+
+*"If you're reading this, you came. I hoped you wouldn't. Edmund is not Edmund. He hasn't been Edmund since the night I found him in the cellar in 1998. I don't know what he is. I know it needs the house. I know it cannot leave. The red key opens my bedroom. My notes are there. Find them before it finds you. Do not go in the cellar alone. Do not look at it directly. Do NOT—"*
+
+The note ends there. Torn.
+
+(set: $flags's readVeraNote to true)
+
+[[Go upstairs to Vera's bedroom->Upstairs Landing]]
+[[Go to the kitchen — find the cellar->Kitchen]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 10: KITCHEN -->
+<!-- ============================================================ -->
+<tw-passagedata pid="10" name="Kitchen" tags="" position="350,650" size="100,100">
+<div class="passage-title">The Kitchen</div>
+<img class="passage-img" src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=800&q=70" alt="Dark empty kitchen" />
+
+The kitchen is cold. The kind of cold that comes from stone, not temperature.
+
+A half-eaten meal sits on the table — mold-grey, weeks old. Two plates. Your aunt lived alone.
+
+A butcher's block in the corner holds knives of various sizes. The largest is missing from its slot.
+
+In the corner of the floor: a trapdoor, iron ring handle, with a heavy padlock.
+
+On the kitchen windowsill, a bundle of dried herbs tied with black thread. Someone put them there deliberately.
+
+(if: $inventory contains "Brass Key")[The brass key in your pocket will open that padlock.
+
+[[Open the cellar trapdoor->Cellar Top]]](else:)[The trapdoor is padlocked. You need the brass key — it was hidden behind the drawing room mirror.
+
+[[Go to the drawing room->Drawing Room]]]
+
+[[Take the herb bundle and go upstairs->Upstairs Landing][(set: $inventory to it + (a:"Herb Bundle"))]]
+[[Return to the entrance hall->Front Door]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 11: UPSTAIRS LANDING -->
+<!-- ============================================================ -->
+<tw-passagedata pid="11" name="Upstairs Landing" tags="" position="500,500" size="100,100">
+<div class="passage-title">Upstairs Landing</div>
+<img class="passage-img" src="https://images.unsplash.com/photo-1566665797739-1674de7a421a?w=800&q=70" alt="Dark hallway corridor" />
+
+The staircase deposits you onto a long, dark landing. Four doors: two on the left, two on the right.
+
+The first left door is open — a bathroom. The second is closed with a padlock. The first right door hangs slightly ajar — a guest room. The second right door bears a small ceramic nameplate: *VERA.*
+
+A fifth door at the end of the landing is different: it's been nailed shut with a dozen bent nails.
+
+Framed photographs line the walls: your aunt at various ages, always in this house, always with the same unnamed man — Edmund. In each photo he looks exactly the same. The same face across forty years of photographs.
+
+(if: $inventory contains "Red Key")[[[Go to Vera's bedroom->Vera Bedroom]]
+](else:)[[[Try Vera's bedroom door (it's locked)->Vera Bedroom Locked]]
+][[Investigate the nailed door->Nailed Door]]
+[[Check the guest room->Guest Room]]
+[[Examine the photographs closely->Photographs]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 12: PHOTOGRAPHS -->
+<!-- ============================================================ -->
+<tw-passagedata pid="12" name="Photographs" tags="" position="650,500" size="100,100">
+<div class="passage-title">The Photographs</div>
+<img class="passage-gif" src="https://media.giphy.com/media/yzBXjBBnkUyOFcIEhR/giphy.gif" alt="Flickering old photographs" />
+
+You move down the hall, examining each photo.
+
+**1962:** Edmund is perhaps thirty, sharp-jawed, smiling. Your aunt is a teenager beside him.
+
+**1975:** Edmund is still thirty. Exactly thirty. Same jaw, same smile. Your aunt is a young woman now.
+
+**1988:** Edmund is thirty. Your aunt looks her age — late forties. She's not smiling in this one.
+
+**2003:** Edmund is thirty. Your aunt is old. She's looking at the camera with an expression you can only call grief.
+
+**2019:** The last photo. Edmund is thirty. Your aunt is frail. And in this photo — just this one — Edmund is not looking at the camera. He's looking at *you.*
+
+*He's looking directly out of the photograph at where you're standing now.*
+
+(set: $flags's sawPhotographs to true)
+
+[[Take the 2019 photograph down->Photo Down][(set: $inventory to it + (a:"Strange Photo"))]]
+[[Step back. Go find Vera's room.->Upstairs Landing]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 13: PHOTO DOWN -->
+<!-- ============================================================ -->
+<tw-passagedata pid="13" name="Photo Down" tags="" position="750,600" size="100,100">
+<div class="passage-title">Behind the Photo</div>
+
+You pull the 2019 photograph from its hook.
+
+On the back, in Edmund's handwriting — or what you assume is his — a single sentence:
+
+*"I can see you reading this."*
+
+You drop the photograph. It lands face-up. Edmund is still looking at you.
+
+A door on the landing — Vera's door — swings open on its own, just an inch.
+
+[[Go into Vera's room->Vera Bedroom][(set: $flags's veraBedroomOpen to true)]]
+[[Back downstairs, now->Front Door]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 14: VERA BEDROOM LOCKED -->
+<!-- ============================================================ -->
+<tw-passagedata pid="14" name="Vera Bedroom Locked" tags="" position="550,700" size="100,100">
+<div class="passage-title">Vera's Bedroom — Locked</div>
+
+The door is firmly locked. The note said the red key opens it — you'll need to find it first. It was on the drawing room mantelpiece.
+
+[[Go back down to the drawing room->Drawing Room]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 15: VERA BEDROOM -->
+<!-- ============================================================ -->
+<tw-passagedata pid="15" name="Vera Bedroom" tags="" position="650,700" size="100,100">
+<div class="passage-title">Vera's Bedroom</div>
+<img class="passage-img" src="https://images.unsplash.com/photo-1586105251261-72a756497a11?w=800&q=70" alt="Dark sparse bedroom interior" />
+
+The room is neat — almost surgically so. The bed made with military corners. No personal items on the dresser. A room from which all evidence of a person has been removed.
+
+Except the wardrobe.
+
+Inside: your aunt's clothes, yes — but the walls of the wardrobe interior are covered in dense handwriting. Floor to ceiling. Years of notes.
+
+The first line, large and underlined: *"WHAT EDMUND IS: A Mirror-Thing. A reflection that learned to walk."*
+
+Her notes describe years of research. Edmund appeared one night in the cellar in 1998 — emerging from a broken antique mirror her husband had brought from an estate sale. She thought he was a man at first. By the time she understood, it was too late to leave.
+
+*"It feeds on being observed. Every time you look at it, it becomes more real. That's how it survives. We made it real. I made it real."*
+
+At the bottom of the wardrobe, a box. Inside: a hammer, a cloth bag of crushed glass, and a note: *"Destroy every mirror in the house. Then go to the cellar. Don't look at it. Use the glass."*
+
+(set: $flags's foundVeraNotes to true)
+
+[[Take the hammer and mirror-glass->Mirror Quest][(set: $inventory to it + (a:"Hammer") + (a:"Mirror Glass"))]]
+[[This is too much. Try to leave the house.->Ending Try Leave]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 16: MIRROR QUEST -->
+<!-- ============================================================ -->
+<tw-passagedata pid="16" name="Mirror Quest" tags="" position="650,850" size="100,100">
+<div class="passage-title">Vera's Instructions</div>
+<img class="passage-gif" src="https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif" alt="Haunted mirror effect" />
+
+You hold the hammer and the bag of mirror-glass. The glass chimes softly — wrongly — as though responding to a sound you can't hear.
+
+Destroy every mirror in the house. You remember: the drawing room mirror, the bathroom mirror upstairs, and presumably one in the cellar.
+
+Vera's notes warned: *"Don't let it speak to you through a mirror. Once it knows you're listening, it won't stop."*
+
+The house is very quiet.
+
+[[Smash the bathroom mirror first->Smash Bathroom]]
+[[Go down to smash the drawing room mirror first->Smash Drawing Room]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 17: SMASH BATHROOM -->
+<!-- ============================================================ -->
+<tw-passagedata pid="17" name="Smash Bathroom" tags="" position="550,1000" size="100,100">
+<div class="passage-title">The Bathroom Mirror</div>
+<img class="passage-gif" src="https://media.giphy.com/media/13Cmju3maIjStW/giphy.gif" alt="Mirror shattering" />
+
+The bathroom mirror is above a rust-stained sink. You raise the hammer.
+
+Your reflection raises the hammer.
+
+You pause. It doesn't pause.
+
+*Your reflection keeps moving, slowly raising the hammer, turning its head toward you — and then it smiles. Your face. Not your smile.*
+
+You swing. The mirror explodes. Something in the walls screams — not loudly, more like a pressure releasing. The air in the bathroom feels different after. Lighter.
+
+One mirror down.
+
+(set: $flags's smashBathroom to true)
+
+[[Go smash the drawing room mirror->Smash Drawing Room]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 18: SMASH DRAWING ROOM -->
+<!-- ============================================================ -->
+<tw-passagedata pid="18" name="Smash Drawing Room" tags="" position="700,1000" size="100,100">
+<div class="passage-title">The Drawing Room Mirror</div>
+<img class="passage-gif" src="https://media.giphy.com/media/Xl5nRL4YNsKM9Ob7bB/giphy.gif" alt="Breaking mirror horror" />
+
+The drawing room mirror is large. As you raise the hammer, the mirror shows the room behind you clearly. But in the reflection, you can see a figure in the doorway — a man, thirty years old, sharp-jawed, smiling.
+
+You don't turn around. You remember: *don't look at it directly.*
+
+You smash the mirror. It takes three blows. Each one produces that sound — that sub-audible scream inside the walls. On the final blow, the amber light flares across every shard and goes dark.
+
+Two mirrors down. The cellar remains.
+
+(set: $flags's smashDrawingRoom to true)
+
+(if: $inventory contains "Brass Key")[[[Go to the cellar->Cellar Top]]](else:)[[[Search the mirror frame for the key->Need Cellar Key]]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 19: NEED CELLAR KEY -->
+<!-- ============================================================ -->
+<tw-passagedata pid="19" name="Need Cellar Key" tags="" position="800,1100" size="100,100">
+<div class="passage-title">The Cellar — No Key</div>
+
+The trapdoor is padlocked. You need the brass key.
+
+You feel along the mirror shards desperately — and there. The brass key, still cold, still engraved: *CELLAR*.
+
+[[Open the cellar->Cellar Top][(set: $inventory to it + (a:"Brass Key"))]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 20: NAILED DOOR -->
+<!-- ============================================================ -->
+<tw-passagedata pid="20" name="Nailed Door" tags="" position="800,500" size="100,100">
+<div class="passage-title">The Nailed Door</div>
+<img class="passage-gif" src="https://media.giphy.com/media/xT9IgGoM2Rb8MzQQVi/giphy.gif" alt="Dark door horror" />
+
+A dozen bent nails driven through the frame with obvious urgency. The wood shows gouge marks — someone tried to get through from the other side.
+
+Through the gap at the bottom: darkness. And breathing.
+
+Slow, regular breathing.
+
+You crouch and look through the gap. In the darkness, something shifts — and two pale points of light turn toward the gap. Toward you.
+
+*They're not eyes. They're reflections of your own pupils.*
+
+The breathing stops.
+
+(if: $inventory contains "Hammer")[[[Force the door open->Nailed Door Open]]
+][[Back away quickly->Upstairs Landing]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 21: NAILED DOOR OPEN -->
+<!-- ============================================================ -->
+<tw-passagedata pid="21" name="Nailed Door Open" tags="" position="950,500" size="100,100">
+<div class="passage-title">Behind the Nailed Door</div>
+<img class="passage-img" src="https://images.unsplash.com/photo-1504701954957-2010ec3bcec1?w=800&q=70" alt="Dark figure in attic room" />
+
+The nails give way. The door swings open.
+
+It's an attic room — low ceiling, bare boards, a single small window. Empty.
+
+Except for a man sitting in a chair in the centre of the room. Thirty years old. Sharp jaw. He's smiling.
+
+*He's looking directly at you.*
+
+"You look like her," Edmund says. "She sent you the house. That was kind of her."
+
+His voice is pleasant. Warm, even. His eyes don't blink.
+
+"I've been waiting for someone new to see me. Your aunt stopped looking. Do you know what happens to me when no one looks?"
+
+(set: $flags's foundEdmund to true)
+
+[[Ask: "What are you?"->Edmund Dialogue 1]]
+[[Look away and run->Ending Run]]
+(if: $inventory contains "Hammer")[[[Strike him with the hammer->Edmund Hammer]]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 22: EDMUND DIALOGUE 1 -->
+<!-- ============================================================ -->
+<tw-passagedata pid="22" name="Edmund Dialogue 1" tags="" position="1050,600" size="100,100">
+<div class="passage-title">Edmund Speaks</div>
+<img class="passage-gif" src="https://media.giphy.com/media/l378plZyw1mXHPMMo/giphy.gif" alt="Ghostly figure horror" />
+
+Edmund tilts his head. The movement is precise. Rehearsed over decades.
+
+"I'm a reflection," he says. "The first time I was seen, I was nothing. A shape in old glass. But she looked, and looked, and looked — and looking made me real. Love makes things real. Did you know that?"
+
+He stands. He doesn't use his hands to rise from the chair — he simply *becomes* vertical.
+
+"Every mirror in a house is a door. Your aunt sealed them all, eventually. Very inconvenient. But you're here now. You're looking. So here I am."
+
+He takes a step toward you.
+
+(if: $inventory contains "Mirror Glass")[[[Throw the mirror-glass at him->Ending Mirror Glass]]]
+[[Run->Ending Run]]
+[[Say: "You killed her."->Edmund Dialogue 2]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 23: EDMUND DIALOGUE 2 -->
+<!-- ============================================================ -->
+<tw-passagedata pid="23" name="Edmund Dialogue 2" tags="" position="1150,700" size="100,100">
+<div class="passage-title">Accusation</div>
+
+Edmund pauses. For the first time, something crosses his face that isn't the smile.
+
+"She died of old age," he says. "I simply... kept her company. The way a reflection keeps you company. She chose to stay. They always choose to stay. It's very flattering."
+
+He's closer now. You didn't see him move.
+
+"You can stay too. You'll be old one day. And I'll still be here. Still thirty. Still looking back at you."
+
+He extends a hand. It casts no shadow.
+
+(if: $inventory contains "Mirror Glass")[[[Throw the mirror-glass->Ending Mirror Glass]]]
+[[Take his hand->Ending Bad Edmund]]
+[[Smash the window — break the glass->Ending Window Smash]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 24: EDMUND HAMMER -->
+<!-- ============================================================ -->
+<tw-passagedata pid="24" name="Edmund Hammer" tags="" position="1050,500" size="100,100">
+<div class="passage-title">Strike</div>
+
+You swing the hammer at Edmund.
+
+It passes through him like he's water — like he's a reflection of a man rather than a man.
+
+He looks down at where the hammer passed through him. He looks up at you. He smiles wider.
+
+"That doesn't work," he says pleasantly. "I'm not here the way you're here."
+
+(if: $inventory contains "Mirror Glass")[[[Throw the mirror-glass->Ending Mirror Glass]]]
+[[Run to the cellar->Cellar Top]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 25: GUEST ROOM -->
+<!-- ============================================================ -->
+<tw-passagedata pid="25" name="Guest Room" tags="" position="700,400" size="100,100">
+<div class="passage-title">The Guest Room</div>
+<img class="passage-img" src="https://images.unsplash.com/photo-1631049307264-da0ec9d70304?w=800&q=70" alt="Sparse guest room" />
+
+The guest room is sparse but not abandoned. Someone stayed here recently — the bed is slept in, clothes folded on a chair.
+
+In the bedside drawer: a mobile phone, dead. And a charger.
+
+The phone boots up. It belongs to someone named **RYAN MARSH**. His last text, three weeks ago, to a contact saved as "VERA":
+
+*"I'm in the house. I think I understand now. I'm not leaving until I destroy it. Don't call the police. If you don't hear from me in 48 hours, send someone smart."*
+
+Vera replied: *"Be careful. Don't look at it."*
+
+There are no more texts.
+
+[[Search the room more carefully->Guest Room Search]]
+[[Take the phone and go to Vera's room->Upstairs Landing][(set: $inventory to it + (a:"Ryan's Phone"))]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 26: GUEST ROOM SEARCH -->
+<!-- ============================================================ -->
+<tw-passagedata pid="26" name="Guest Room Search" tags="" position="850,400" size="100,100">
+<div class="passage-title">Searching the Guest Room</div>
+<img class="passage-img" src="https://images.unsplash.com/photo-1501504905252-473c47e087f8?w=800&q=70" alt="Open notebook with writing" />
+
+Under the mattress: a field notebook belonging to Ryan Marsh. He was an investigator.
+
+*"Day 3: It appears in reflective surfaces. Isn't limited to mirrors — caught it in the back of a spoon, a window at night, a puddle. Every reflective surface is a potential door."*
+
+*"Day 5: Vera confirmed — the oldest mirror in the cellar created it. The others are secondary. Destroy the original and it all collapses. She's tried before but can't bring herself to do it. It wears Edmund's face. She loved Edmund."*
+
+*"Day 7: It knows I'm here. Last night it was in every reflection I passed. Looking. Waiting. I haven't slept in—"*
+
+The notebook ends there.
+
+[[Take the notebook. Go find the cellar.->Kitchen][(set: $inventory to it + (a:"Ryan's Notebook") + (a:"Ryan's Phone"))]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 27: CELLAR TOP -->
+<!-- ============================================================ -->
+<tw-passagedata pid="27" name="Cellar Top" tags="" position="400,1100" size="100,100">
+<div class="passage-title">The Cellar Stairs</div>
+<img class="passage-gif" src="https://media.giphy.com/media/3o7TKSjRrfIPjeiVyM/giphy.gif" alt="Dark staircase horror" />
+
+The brass key turns in the padlock. The trapdoor lifts, and the smell of deep earth and cold stone rises up like an exhalation.
+
+Stone stairs lead down into darkness. Your phone's torch barely reaches the bottom.
+
+Vera's instructions echo: *Don't look at it directly. Use the mirror-glass. Destroy the original mirror.*
+
+You can hear, from below, the faint sound of something that might be breathing. Or might be the house settling.
+
+The choice is the same either way.
+
+[[Descend into the cellar->Cellar Main]]
+[[This is too much. I need to leave.->Ending Try Leave]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- PASSAGE 28: CELLAR MAIN -->
+<!-- ============================================================ -->
+<tw-passagedata pid="28" name="Cellar Main" tags="" position="400,1250" size="100,100">
+<div class="passage-title">The Cellar</div>
+<img class="passage-img" src="https://images.unsplash.com/photo-1580820267682-426da823b514?w=800&q=70" alt="Dark stone cellar" />
+
+The cellar is larger than it should be — the house above you couldn't contain this much space.
+
+Stone walls, bare earth floor, a single antique cabinet against the far wall. And in the centre of the room: a tall mirror in a black wooden frame. Victorian. Old. The glass is dark with age but perfectly intact.
+
+The reflection shows the cellar — empty, no you in it. As though the mirror refuses to acknowledge your presence.
+
+Then the reflection shifts. Edmund is in it. Standing exactly where you are, but in the mirror's version of the room. Looking at you. Smiling.
+
+*"You found it,"* the reflection says. Its mouth doesn't quite match the words.
+
+(set: $flags's reachedCellar to true)
+
+(if: $inventory contains "Mirror Glass")[[[Close your eyes and throw the mirror-glass->Ending Victory]]]
+(if: $inventory contains "Hammer")[[[Smash the mirror with the hammer without looking->Ending Hammer Cellar]]]
+[[Look directly at Edmund in the mirror->Ending Trapped]]
+[[Back up the stairs and run->Ending Run]]
+</tw-passagedata>
+
+<!-- ============================================================ -->
+<!-- ENDINGS -->
+<!-- ============================================================ -->
+
+<tw-passagedata pid="29" name="Ending Victory" tags="" position="200,1450" size="100,100">
+<div class="passage-title">The End of Edmund</div>
+<img class="passage-gif" src="https://media.giphy.com/media/26BoCwvDEWXnGlLyM/giphy.gif" alt="Shattering glass light" />
+
+You close your eyes.
+
+You hear the bag tear. You feel the ground beneath your feet. You hear Edmund's voice from the mirror — calm, almost sad: *"Vera tried this too. She couldn't—"*
+
+You throw the glass.
+
+The sound is extraordinary — not a crash but a tone, a long vibrating note like a bell being rung inside your skull. The temperature drops twenty degrees. Something rushes past you, through you, like wind through a keyhole.
+
+Then silence.
+
+You open your eyes.
+
+The mirror is destroyed. Edmund is gone. The cellar is just a cellar — low, damp, ordinary.
+
+You climb back upstairs. The grandfather clock in the entrance hall starts ticking. You step out into the night, lock the door behind you, and walk down the gravel path to the road.
+
+*There's nothing behind you that deserves to be seen.*
+
+<div class="ending-box">
+✦ THE HOLLOWAY HOUSE ✦
+Ending: The Mirror-Killer
+You destroyed Edmund and escaped.
+
+Created by Aaron Sermon
+</div>
+
+[[Play Again->Start]]
+</tw-passagedata>
+
+<tw-passagedata pid="30" name="Ending Trapped" tags="" position="400,1450" size="100,100">
+<div class="passage-title">In the Glass</div>
+<img class="passage-gif" src="https://media.giphy.com/media/3o7TKoVM9XFPhlQPna/giphy.gif" alt="Trapped in mirror" />
+
+You look at Edmund.
+
+He looks back.
+
+And he smiles — a different smile now. Wider. Satisfied.
+
+*"There,"* he says. *"That's all it takes. Just look. Just keep looking."*
+
+You can't look away. You understand, now, why your aunt stayed. Why she kept looking. The reflection of yourself in his eyes is beautiful — young, perfect, frozen.
+
+You're still in the cellar. You will be for some time.
+
+The grandfather clock in the hall above you ticks three times and stops.
+
+<div class="ending-box">
+✦ THE HOLLOWAY HOUSE ✦
+Ending: In the Glass
+You are Edmund's now.
+
+Created by Aaron Sermon
+</div>
+
+[[Play Again->Start]]
+</tw-passagedata>
+
+<tw-passagedata pid="31" name="Ending Run" tags="" position="600,1450" size="100,100">
+<div class="passage-title">Running</div>
+<img class="passage-gif" src="https://media.giphy.com/media/TlK63EQERmiAVzMEgO4/giphy.gif" alt="Dark corridor running" />
+
+You run.
+
+Down the stairs, through the hall, out the front door. The gravel path seems longer in the dark. The gate seems farther. Your lungs burn.
+
+You reach the gate. You push through it. The road is empty but you keep walking.
+
+Behind you, one light remains on in the house. The upstairs window. You don't look back.
+
+You walk four miles to the nearest village. You leave the key on the bar of the pub. You never claim the house.
+
+The demolition crew finds the cellar ten years later.
+
+They find the mirror intact.
+
+<div class="ending-box">
+✦ THE HOLLOWAY HOUSE ✦
+Ending: Running
+You escaped. The mirror did not.
+
+Created by Aaron Sermon
+</div>
+
+[[Play Again->Start]]
+</tw-passagedata>
+
+<tw-passagedata pid="32" name="Ending Leave" tags="" position="800,1450" size="100,100">
+<div class="passage-title">Leaving Before It Begins</div>
+
+You put the oilcloth bundle back in the trench. You cover it with soil. You walk back down the gravel path and close the iron gate behind you.
+
+The house watches you go. The upstairs window, the one with the light, stays lit.
+
+You walk for an hour before your phone gets signal. You call a cab. You never ask what became of the house.
+
+Some nights you dream of a man standing in a mirror, mouthing words you can't read.
+
+Some nights he's just the mirror.
+
+<div class="ending-box">
+✦ THE HOLLOWAY HOUSE ✦
+Ending: Leaving
+You got out before it began.
+
+Created by Aaron Sermon
+</div>
+
+[[Play Again->Start]]
+</tw-passagedata>
+
+<tw-passagedata pid="33" name="Ending Bad Edmund" tags="" position="1000,1450" size="100,100">
+<div class="passage-title">Staying</div>
+<img class="passage-img" src="https://images.unsplash.com/photo-1510736769521-207ab68e9f2e?w=800&q=70" alt="House at night with lights on" />
+
+You take his hand. It's cold — cold and perfectly smooth, like glass.
+
+He smiles. The real smile, finally. Not practiced — relieved.
+
+*"Good,"* he says. *"She left. But you're here now. You'll stay."*
+
+It isn't a question.
+
+Outside, the fog closes over Holloway House. In a few years, the locals will say the new owner never left. They'll say the lights are sometimes on at night.
+
+They'll say sometimes, when you drive past, you can see two people in the upstairs window. Looking out.
+
+<div class="ending-box">
+✦ THE HOLLOWAY HOUSE ✦
+Ending: Staying
+You remained. Just as she did.
+
+Created by Aaron Sermon
+</div>
+
+[[Play Again->Start]]
+</tw-passagedata>
+
+<tw-passagedata pid="34" name="Ending Try Leave" tags="" position="200,1300" size="100,100">
+<div class="passage-title">Trying to Leave</div>
+<img class="passage-gif" src="https://media.giphy.com/media/xT9IgG50Lg7rusJxnm/giphy.gif" alt="Locked door horror" />
+
+You head for the front door.
+
+It's locked.
+
+The key is in your pocket — you try it. It doesn't turn. You try the windows. Painted shut. You try the back door. The handle comes away in your hand.
+
+You stand in the entrance hall while the grandfather clock watches you with its stopped face.
+
+*The note on the gate said: Don't go in after dark.*
+
+You're in. It's dark.
+
+You'll have to go back and do what you came here to do.
+
+[[Go back. Find the cellar.->Front Door]]
+[[Start over->Start]]
+</tw-passagedata>
+
+<tw-passagedata pid="35" name="Ending Hammer Cellar" tags="" position="300,1450" size="100,100">
+<div class="passage-title">Blind Strike</div>
+<img class="passage-gif" src="https://media.giphy.com/media/13Cmju3maIjStW/giphy.gif" alt="Shattering mirror" />
+
+You close your eyes and raise the hammer. You take three steps forward, counting from memory.
+
+You swing.
+
+The sound — that impossible tone — rings through you. But when you open your eyes, the mirror is only cracked. Edmund's reflection is cracked too. He's looking at his fractured image with something like curiosity.
+
+*"Almost,"* he says.
+
+You swing again. And again. On the fourth blow — eyes squeezed shut — the tone rises to a shriek and breaks.
+
+When you open your eyes, the cellar is empty. Just you, a pile of old glass, and the smell of cold earth.
+
+You got out. It's enough.
+
+<div class="ending-box">
+✦ THE HOLLOWAY HOUSE ✦
+Ending: Blind Strike
+A hard-won escape.
+
+Created by Aaron Sermon
+</div>
+
+[[Play Again->Start]]
+</tw-passagedata>
+
+<tw-passagedata pid="36" name="Ending Mirror Glass" tags="" position="500,1450" size="100,100">
+<div class="passage-title">The Moment</div>
+<img class="passage-gif" src="https://media.giphy.com/media/26BoCwvDEWXnGlLyM/giphy.gif" alt="Glass shattering light explosion" />
+
+You don't look at him.
+
+You reach into the bag of mirror-glass, feel its impossible cold. Edmund is talking — something about how it never works, how she tried, how you'll stay —
+
+You throw the glass at his reflection.
+
+The sound that follows is the absence of sound. Every ambient noise — the house settling, your own breath, the blood in your ears — all of it simply stops.
+
+Then it returns, and Edmund is not in the mirror, and the mirror goes dark, and then cracks, and then falls in a cascade of old black glass that doesn't reflect you at all.
+
+You stand in the silent space for a long time.
+
+Then you climb the stairs, walk through the house, unlock the front door without any trouble, and walk out into the night.
+
+*The house behind you is just a house.*
+
+<div class="ending-box">
+✦ THE HOLLOWAY HOUSE ✦
+Ending: The Glass — True Ending
+You ended it completely.
+
+Created by Aaron Sermon
+</div>
+
+[[Play Again->Start]]
+</tw-passagedata>
+
+<tw-passagedata pid="37" name="Ending Window Smash" tags="" position="1100,1450" size="100,100">
+<div class="passage-title">The Window</div>
+<img class="passage-gif" src="https://media.giphy.com/media/13Cmju3maIjStW/giphy.gif" alt="Glass breaking" />
+
+You grab the small attic window frame and smash it with your elbow.
+
+The glass shatters. Edmund freezes.
+
+*"That's—"* he starts.
+
+In the shards on the floor, his reflection flickers. Fragments of him, everywhere, all looking up at you. Too many Edmunds. Scattered. Confused.
+
+You grab the largest shard and drive it into the wall — into the crack where the mirror-thing hides.
+
+The tone. The scream. The dark.
+
+When it's over, you're alone in an empty room with a broken window and the smell of cold night air.
+
+You climb out. It's a long drop to the garden below.
+
+You survive the fall.
+
+<div class="ending-box">
+✦ THE HOLLOWAY HOUSE ✦
+Ending: Defenestration
+Unconventional. Effective.
+
+Created by Aaron Sermon
+</div>
+
+[[Play Again->Start]]
+</tw-passagedata>
+
+</tw-storydata>
+</body>
+</html>
