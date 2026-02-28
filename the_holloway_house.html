@@ -1,0 +1,1059 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>The Holloway House</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=IM+Fell+English:ital@0;1&family=Special+Elite&display=swap');
+
+  :root {
+    --bg: #0a0806;
+    --paper: #12100e;
+    --text: #c9b99a;
+    --accent: #8b2e2e;
+    --dim: #6b5c47;
+    --bright: #e8d5b0;
+    --link: #c0764a;
+    --link-hover: #e89a6a;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: var(--bg);
+    color: var(--text);
+    font-family: 'IM Fell English', Georgia, serif;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+
+  #game-container {
+    max-width: 720px;
+    width: 100%;
+    padding: 40px 24px 80px;
+    position: relative;
+  }
+
+  #header {
+    text-align: center;
+    padding: 40px 0 20px;
+    border-bottom: 1px solid #2a2018;
+    margin-bottom: 32px;
+  }
+
+  #game-title {
+    font-family: 'Special Elite', cursive;
+    font-size: 2rem;
+    color: var(--bright);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    opacity: 0.85;
+  }
+
+  #passage-title {
+    font-family: 'Special Elite', cursive;
+    font-size: 1.1rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    margin-bottom: 20px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid #2a1a1a;
+  }
+
+  #passage-text {
+    font-size: 1.08rem;
+    line-height: 1.9;
+    color: var(--text);
+    margin-bottom: 32px;
+    white-space: pre-line;
+  }
+
+  #passage-text em {
+    color: var(--dim);
+    font-style: italic;
+  }
+
+  #choices {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .choice-btn {
+    background: transparent;
+    border: 1px solid #3a2a1a;
+    color: var(--link);
+    font-family: 'IM Fell English', serif;
+    font-size: 1rem;
+    padding: 12px 20px;
+    text-align: left;
+    cursor: pointer;
+    transition: all 0.2s;
+    position: relative;
+    padding-left: 30px;
+  }
+
+  .choice-btn::before {
+    content: '›';
+    position: absolute;
+    left: 12px;
+    color: var(--accent);
+    transition: transform 0.2s;
+  }
+
+  .choice-btn:hover {
+    background: #1a1008;
+    color: var(--link-hover);
+    border-color: var(--accent);
+  }
+
+  .choice-btn:hover::before {
+    transform: translateX(3px);
+  }
+
+  #status-bar {
+    font-family: 'Special Elite', cursive;
+    font-size: 0.72rem;
+    color: var(--dim);
+    letter-spacing: 0.15em;
+    text-transform: uppercase;
+    margin-bottom: 24px;
+    display: flex;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
+  .status-item {
+    padding: 2px 8px;
+    border: 1px solid #2a2018;
+  }
+
+  .status-item.on {
+    color: var(--accent);
+    border-color: #5a2020;
+  }
+
+  #passage-container {
+    opacity: 0;
+    transform: translateY(6px);
+    animation: fadeIn 0.4s ease forwards;
+  }
+
+  @keyframes fadeIn {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  #footer {
+    text-align: center;
+    margin-top: 40px;
+    padding-top: 20px;
+    border-top: 1px solid #1a1410;
+    font-size: 0.78rem;
+    color: #3a3028;
+    font-family: 'Special Elite', cursive;
+    letter-spacing: 0.1em;
+  }
+
+  .flicker {
+    animation: flicker 4s infinite;
+  }
+
+  @keyframes flicker {
+    0%, 95%, 100% { opacity: 1; }
+    96% { opacity: 0.7; }
+    97% { opacity: 1; }
+    98% { opacity: 0.5; }
+    99% { opacity: 1; }
+  }
+
+  #title-screen {
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  #title-screen h1 {
+    font-family: 'Special Elite', cursive;
+    font-size: 3rem;
+    color: var(--bright);
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    margin-bottom: 12px;
+  }
+
+  #title-screen .subtitle {
+    font-style: italic;
+    color: var(--dim);
+    margin-bottom: 48px;
+    font-size: 1.1rem;
+  }
+
+  #title-screen .start-btn {
+    font-family: 'Special Elite', cursive;
+    font-size: 1rem;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--link);
+    padding: 14px 36px;
+    cursor: pointer;
+    transition: all 0.3s;
+  }
+
+  #title-screen .start-btn:hover {
+    background: var(--accent);
+    color: var(--bright);
+  }
+
+  .dead-end {
+    color: var(--accent);
+    font-style: italic;
+    margin-top: 12px;
+    font-size: 0.95rem;
+  }
+
+  .inventory-item {
+    display: inline-block;
+    border: 1px solid #3a2a1a;
+    padding: 1px 6px;
+    margin: 2px;
+    font-size: 0.8rem;
+    color: var(--bright);
+  }
+</style>
+</head>
+<body>
+
+<div id="game-container">
+  <div id="header">
+    <div id="game-title" class="flicker">The Holloway House</div>
+  </div>
+  <div id="main-content"></div>
+  <div id="footer">A horror mystery · Navigate with your choices · Some paths lead to ruin<br><br>Created by Aaron Sermon</div>
+</div>
+
+<script>
+// ============================================================
+// GAME STATE
+// ============================================================
+const state = {
+  currentPassage: '__title',
+  inventory: [],
+  flags: {},
+  history: [],
+};
+
+function setFlag(key, val = true) { state.flags[key] = val; }
+function hasFlag(key) { return !!state.flags[key]; }
+function hasItem(item) { return state.inventory.includes(item); }
+function addItem(item) { if (!hasItem(item)) state.inventory.push(item); }
+function removeItem(item) { state.inventory = state.inventory.filter(i => i !== item); }
+
+// ============================================================
+// PASSAGES
+// ============================================================
+const passages = {
+
+  __title: {
+    title: '',
+    text: '',
+    isTitle: true,
+  },
+
+  start: {
+    title: 'Arrival',
+    text: `The cab drops you at the iron gate just as the last light bleeds from the sky.
+
+Holloway House looms at the end of a gravel path — a Victorian pile of black stone, boarded windows, and a widow's walk that vanishes into fog. Your aunt Vera left it to you. She left you nothing else: no note, no explanation, just a key and a lawyer's cold handshake.
+
+<em>The gate is already unlocked. That's the first thing that's wrong.</em>
+
+The gravel crunches beneath your feet. Somewhere in the dead garden, something shifts.`,
+    choices: [
+      { text: 'Walk directly to the front door', next: 'front_door' },
+      { text: 'Check the garden first', next: 'garden' },
+      { text: 'Examine the gate more carefully', next: 'examine_gate' },
+    ],
+    onEnter: () => { setFlag('arrived'); }
+  },
+
+  examine_gate: {
+    title: 'The Iron Gate',
+    text: `You study the gate. The padlock hangs open — but not forced. Someone had a key.
+
+Scratched into the rust on the left post, barely legible: <em>"DON'T GO IN AFTER DARK."</em>
+
+It's already dark.
+
+Below those words, someone scratched a second message in fresher metal: <em>"She's still inside."</em>
+
+Your aunt Vera died six months ago. The house has been empty.`,
+    choices: [
+      { text: 'Walk to the front door', next: 'front_door' },
+      { text: 'Check the garden', next: 'garden' },
+    ],
+    onEnter: () => setFlag('saw_gate_warning'),
+  },
+
+  garden: {
+    title: 'The Dead Garden',
+    text: `The garden is a graveyard of roses — black thorns, no blooms. The soil is disturbed in a long, narrow trench near the old oak tree. Too narrow for a grave, you tell yourself.
+
+Near the trench you find a rusted trowel and a small tin box half-buried in the dirt. Inside: a photograph of your aunt as a young woman, standing in front of the house. She's smiling. Standing next to her is a man you don't recognise.
+
+On the back of the photograph, her handwriting: <em>"Edmund knows. Don't trust the mirror."</em>
+
+You hear a sound from inside the house — a single, low creak.`,
+    choices: [
+      { text: 'Take the photograph and go to the front door', next: 'front_door', action: () => addItem('photograph') },
+      { text: 'Investigate the trench', next: 'garden_trench' },
+    ],
+  },
+
+  garden_trench: {
+    title: 'The Trench',
+    text: `You crouch beside the trench. It's about two feet deep — and at the bottom, wrapped in oilcloth, is a bundle of papers.
+
+You pull it free. Inside: pages torn from a journal, dated three years ago, in your aunt's handwriting. Most are water-damaged and illegible, but one line survives intact:
+
+<em>"The thing wearing Edmund's face has been here for twenty years. I've let it in for twenty years."</em>
+
+The house groans above you. A light — dim and amber — appears in an upstairs window.
+
+<em>The house is supposed to be empty.</em>`,
+    choices: [
+      { text: 'Take the journal pages and approach the front door', next: 'front_door', action: () => addItem('journal_pages') },
+      { text: 'Leave. This was a mistake.', next: 'ending_leave' },
+    ],
+  },
+
+  front_door: {
+    title: 'The Front Door',
+    text: `The front door is enormous — black oak, with a tarnished brass knocker shaped like a crow. The key the lawyer gave you fits perfectly. The lock turns with a sound like a held breath releasing.
+
+The smell that escapes is old paper, damp stone, and something else. Something animal.
+
+The entrance hall stretches before you: a grand staircase rising into shadow, a hallway leading left toward the kitchen, a door on your right marked with peeling paint — the drawing room.
+
+A grandfather clock at the base of the stairs has stopped. The hands point to 3:17.`,
+    choices: [
+      { text: 'Go upstairs', next: 'upstairs_landing' },
+      { text: 'Enter the drawing room', next: 'drawing_room' },
+      { text: 'Go toward the kitchen', next: 'kitchen' },
+    ],
+    onEnter: () => setFlag('entered_house'),
+  },
+
+  drawing_room: {
+    title: 'The Drawing Room',
+    text: `Heavy drapes block any outside light. You find a lamp and click it on — the bulb flickers, holds.
+
+The room is frozen in time: teacups still on a silver tray, a half-finished game of solitaire on the card table, a shawl draped over the arm of a wingback chair as though someone just stepped away.
+
+Above the fireplace hangs a large mirror in a gilt frame. You look into it.
+
+Your reflection looks back — but half a second late. Just a half second. You blink. The delay is gone.
+
+<em>Or was it ever there?</em>
+
+On the mantelpiece: a key with a red ribbon, and a folded note.`,
+    choices: [
+      { text: 'Take the red-ribbon key and read the note', next: 'drawing_room_note', action: () => addItem('red_key') },
+      { text: 'Examine the mirror more closely', next: 'mirror_examine' },
+      { text: 'Leave and go upstairs', next: 'upstairs_landing' },
+    ],
+  },
+
+  mirror_examine: {
+    title: 'The Mirror',
+    text: `You lean close to the mirror. Your breath fogs the glass.
+
+When the fog clears, there's a word written in it from the other side — backwards, as though someone on the other side wrote it for you to read:
+
+<em>BELOW</em>
+
+Then it fades. The mirror shows only your face: pale, wide-eyed, looking very much like someone who should leave.
+
+You notice a hairline crack running down the left side of the mirror's frame. Behind the crack, something is wedged — a small brass key, tarnished green.`,
+    choices: [
+      { text: 'Take the brass key', next: 'drawing_room_mirror_key', action: () => addItem('brass_key') },
+      { text: 'Back away and go to the kitchen', next: 'kitchen' },
+    ],
+    onEnter: () => setFlag('saw_mirror_message'),
+  },
+
+  drawing_room_mirror_key: {
+    title: 'The Mirror Key',
+    text: `The brass key comes free with a twist. It's cold — far colder than the room.
+
+Engraved on it: <em>CELLAR</em>.
+
+The mirror behind you reflects the room perfectly. No delay. No words. Just your back, and the room, and the stillness pressing in from all sides.`,
+    choices: [
+      { text: 'Read the note on the mantelpiece', next: 'drawing_room_note' },
+      { text: 'Find the cellar', next: 'kitchen' },
+    ],
+  },
+
+  drawing_room_note: {
+    title: 'Vera\'s Note',
+    text: `The note is in your aunt's handwriting, but hurried — nearly frantic:
+
+<em>"If you're reading this, you came. I hoped you wouldn't. Edmund is not Edmund. He hasn't been Edmund since the night I found him in the cellar in 1998. I don't know what he is. I know it needs the house. I know it cannot leave. The red key opens my bedroom. My notes are there. Find them before it finds you. Do not go in the cellar alone. Do not look at it directly. Do NOT—"</em>
+
+The note ends there. Torn.`,
+    choices: [
+      { text: 'Go upstairs to Vera\'s bedroom', next: 'upstairs_landing' },
+      { text: 'Go to the kitchen — find the cellar', next: 'kitchen' },
+    ],
+    onEnter: () => setFlag('read_vera_note'),
+  },
+
+  kitchen: {
+    title: 'The Kitchen',
+    text: `The kitchen is cold. The kind of cold that comes from stone, not temperature.
+
+A half-eaten meal sits on the table — mold-grey, weeks old. Two plates. Your aunt lived alone.
+
+A butcher's block in the corner holds knives of various sizes. The largest is missing from its slot.
+
+In the corner of the floor: a trapdoor, iron ring handle, with a heavy padlock. If you have the brass key, it will fit. If not, the cellar remains sealed — for now.
+
+On the kitchen windowsill, a bundle of dried herbs tied with black thread. Someone put them there deliberately. Protection against something, maybe.`,
+    choices: [
+      ...(hasItem('brass_key') || hasFlag('has_brass_key')
+        ? [{ text: 'Use the brass key to open the cellar trapdoor', next: 'cellar_top' }]
+        : [{ text: 'The trapdoor is padlocked. Look for the key elsewhere.', next: 'front_door' }]),
+      { text: 'Take the herb bundle and go upstairs', next: 'upstairs_landing', action: () => addItem('herb_bundle') },
+      { text: 'Return to the entrance hall', next: 'front_door' },
+    ],
+  },
+
+  upstairs_landing: {
+    title: 'Upstairs Landing',
+    text: `The staircase deposits you onto a long, dark landing. Four doors: two on the left, two on the right.
+
+The first left door is open — a bathroom. The second is closed with a padlock.
+
+The first right door hangs slightly ajar — a guest room. The second right door bears a small ceramic nameplate: <em>VERA.</em>
+
+A fifth door at the end of the landing is different from the rest: it's been nailed shut. Crudely, desperately, with a dozen bent nails.
+
+Framed photographs line the walls: your aunt at various ages, always in this house, always with the same unnamed man — Edmund. In each photo he looks exactly the same. The same face across forty years of photographs.`,
+    choices: [
+      { text: 'Go to Vera\'s bedroom', next: 'vera_bedroom', condition: () => hasItem('red_key') || hasFlag('vera_bedroom_open') },
+      { text: 'Try Vera\'s bedroom door (it\'s locked)', next: 'vera_bedroom_locked', condition: () => !hasItem('red_key') && !hasFlag('vera_bedroom_open') },
+      { text: 'Investigate the nailed door at the end', next: 'nailed_door' },
+      { text: 'Check the guest room', next: 'guest_room' },
+      { text: 'Examine the photographs closely', next: 'photographs' },
+    ],
+  },
+
+  photographs: {
+    title: 'The Photographs',
+    text: `You move down the hall, examining each photo.
+
+1962: Edmund is perhaps thirty, sharp-jawed, smiling. Your aunt is a teenager beside him.
+
+1975: Edmund is still thirty. Exactly thirty. Same jaw, same smile. Your aunt is a young woman now.
+
+1988: Edmund is thirty. Your aunt looks her age — late forties. She's not smiling in this one.
+
+2003: Edmund is thirty. Your aunt is old. She's looking at the camera with an expression you can only call grief.
+
+2019: The last photo. Edmund is thirty. Your aunt is frail. And in this photo — just this one — Edmund is not looking at the camera. He's looking at <em>you.</em>
+
+<em>He's looking directly out of the photograph at where you're standing now.</em>`,
+    choices: [
+      { text: 'Take the 2019 photograph down', next: 'photo_down', action: () => addItem('strange_photo') },
+      { text: 'Step back. Go to Vera\'s room.', next: hasItem('red_key') ? 'vera_bedroom' : 'upstairs_landing' },
+    ],
+    onEnter: () => setFlag('saw_photographs'),
+  },
+
+  photo_down: {
+    title: 'Behind the Photo',
+    text: `You pull the 2019 photograph from its hook.
+
+On the back, in Edmund's handwriting — or what you assume is his — a single sentence:
+
+<em>"I can see you reading this."</em>
+
+You drop the photograph. It lands face-up. Edmund is still looking at you.
+
+A door on the landing — Vera's door — swings open on its own, just an inch.`,
+    choices: [
+      { text: 'Go into Vera\'s room', next: 'vera_bedroom', action: () => setFlag('vera_bedroom_open') },
+      { text: 'Back downstairs, now', next: 'front_door' },
+    ],
+  },
+
+  vera_bedroom_locked: {
+    title: 'Vera\'s Bedroom — Locked',
+    text: `The door is firmly locked. The note said the red key opens it. You'll need to find the red key first — it was on the drawing room mantelpiece.`,
+    choices: [
+      { text: 'Go back down to the drawing room', next: 'drawing_room' },
+    ],
+  },
+
+  vera_bedroom: {
+    title: 'Vera\'s Bedroom',
+    text: `The room is neat — almost surgically so. The bed made with military corners. No personal items on the dresser. It looks like a room from which all evidence of a person has been removed.
+
+Except the wardrobe.
+
+Inside: your aunt's clothes, yes — but also the walls of the wardrobe interior are covered in dense handwriting. Floor to ceiling. Years of notes.
+
+The first line, large and underlined: <em>"WHAT EDMUND IS: A Mirror-Thing. A reflection that learned to walk."</em>
+
+Her notes describe years of research. Edmund appeared one night in the cellar in 1998 — emerging from a broken antique mirror her husband had brought from an estate sale. She thought he was a man at first. By the time she understood, it was too late to leave.
+
+<em>"It feeds on being observed. Every time you look at it, it becomes more real. That's how it survives. We made it real. I made it real."</em>
+
+At the bottom of the wardrobe, a box. Inside: a hammer, a cloth bag of what looks like crushed glass, and a note: <em>"Destroy every mirror in the house. Then go to the cellar. Don't look at it. Use the glass."</em>`,
+    choices: [
+      { text: 'Take the hammer and mirror-glass', next: 'mirror_quest', action: () => { addItem('hammer'); addItem('mirror_glass'); } },
+      { text: 'This is too much. Try to leave the house.', next: 'ending_try_leave' },
+    ],
+    onEnter: () => setFlag('found_vera_notes'),
+  },
+
+  mirror_quest: {
+    title: 'Vera\'s Instructions',
+    text: `You hold the hammer and the bag of mirror-glass. The glass chimes softly — wrongly — as though responding to a sound you can't hear.
+
+Your aunt's instructions are clear: destroy every mirror in the house. You count them from memory — the drawing room mirror, the bathroom mirror upstairs, and presumably one in the cellar.
+
+Vera's notes warned: <em>"Don't let it speak to you through a mirror. Once it knows you're listening, it won't stop."</em>
+
+The house is very quiet.`,
+    choices: [
+      { text: 'Smash the bathroom mirror (upstairs)', next: 'smash_bathroom' },
+      { text: 'Go down to smash the drawing room mirror first', next: 'smash_drawing_room' },
+    ],
+  },
+
+  smash_bathroom: {
+    title: 'The Bathroom Mirror',
+    text: `The bathroom mirror is above a rust-stained sink. You raise the hammer.
+
+Your reflection raises the hammer.
+
+You pause. It doesn't pause.
+
+<em>Your reflection keeps moving, slowly raising the hammer, turning its head toward you — and then it smiles. Your face. Not your smile.</em>
+
+You swing. The mirror explodes. Something in the walls screams — not loudly, more like a pressure releasing. The air in the bathroom feels different after. Lighter.
+
+One mirror down.`,
+    choices: [
+      { text: 'Go smash the drawing room mirror', next: 'smash_drawing_room' },
+    ],
+    onEnter: () => setFlag('smashed_bathroom'),
+  },
+
+  smash_drawing_room: {
+    title: 'The Drawing Room Mirror',
+    text: `The drawing room mirror is large — you'd forgotten how large. It takes up half the wall above the fireplace.
+
+As you raise the hammer, the mirror shows the room behind you clearly. But in the reflection, you can see a figure in the doorway — a man, thirty years old, sharp-jawed, smiling.
+
+You don't turn around. You remember: <em>don't look at it directly.</em>
+
+You smash the mirror. It takes three blows. Each one produces that sound — that sub-audible scream inside the walls. On the final blow, the amber light you saw from outside flares across every shard and goes dark.
+
+Two mirrors down. The cellar remains.`,
+    choices: [
+      { text: 'Go to the cellar', next: hasItem('brass_key') ? 'cellar_top' : 'need_cellar_key' },
+    ],
+    onEnter: () => setFlag('smashed_drawing_room'),
+  },
+
+  need_cellar_key: {
+    title: 'The Cellar — No Key',
+    text: `The trapdoor is padlocked. You need the brass key to open it — you haven't found it yet.
+
+<em>The mirror in the cellar. Edmund. The thing that wore Edmund's face for forty years. It's down there, waiting.</em>
+
+The brass key was hidden behind the crack in the drawing room mirror frame — but the mirror is now destroyed. You feel along the shards desperately and — yes. There. The brass key, still cold, still engraved: CELLAR.`,
+    choices: [
+      { text: 'Open the cellar', next: 'cellar_top', action: () => addItem('brass_key') },
+    ],
+  },
+
+  nailed_door: {
+    title: 'The Nailed Door',
+    text: `A dozen bent nails driven through the frame with obvious urgency. The wood around them shows gouge marks — someone tried to get through from the other side.
+
+Through the gap at the bottom: darkness. And breathing.
+
+Slow, regular breathing.
+
+You crouch and look through the gap. In the darkness, something shifts — and two pale points of light turn toward the gap. Toward you.
+
+<em>They're not eyes. They're reflections of your own pupils.</em>
+
+The breathing stops.`,
+    choices: [
+      { text: 'Back away quickly', next: 'upstairs_landing' },
+      { text: 'Force the door open', next: 'nailed_door_open', condition: () => hasItem('hammer') },
+      { text: 'Leave it nailed shut', next: 'upstairs_landing' },
+    ],
+  },
+
+  nailed_door_open: {
+    title: 'Behind the Nailed Door',
+    text: `The nails give way. The door swings open.
+
+It's an attic room — low ceiling, bare boards, a single small window. Empty.
+
+Except for a man sitting in a chair in the centre of the room. Thirty years old. Sharp jaw. He's smiling.
+
+<em>He's looking directly at you.</em>
+
+"You look like her," Edmund says. "She sent you the house. That was kind of her."
+
+His voice is pleasant. Warm, even. His eyes don't blink.
+
+"I've been waiting for someone new to see me. Your aunt stopped looking. Do you know what happens to me when no one looks?"`,
+    choices: [
+      { text: '"What are you?"', next: 'edmund_dialogue_1' },
+      { text: 'Look away and run', next: 'ending_run' },
+      { text: 'Strike him with the hammer', next: 'edmund_hammer' },
+    ],
+    onEnter: () => setFlag('found_edmund'),
+  },
+
+  edmund_dialogue_1: {
+    title: 'Edmund Speaks',
+    text: `Edmund tilts his head. The movement is precise. Rehearsed over decades.
+
+"I'm a reflection," he says. "The first time I was seen, I was nothing. A shape in old glass. But she looked, and looked, and looked — and looking made me real. Love makes things real. Did you know that?"
+
+He stands. He doesn't use his hands to rise from the chair — he simply becomes vertical.
+
+"Every mirror in a house is a door. Your aunt sealed them all, eventually. Very inconvenient. But you're here now. You're looking. So here I am."
+
+He takes a step toward you.`,
+    choices: [
+      { text: 'Throw the mirror-glass at him', next: 'ending_mirror_glass', condition: () => hasItem('mirror_glass') },
+      { text: 'Run', next: 'ending_run' },
+      { text: '"You killed her."', next: 'edmund_dialogue_2' },
+    ],
+  },
+
+  edmund_dialogue_2: {
+    title: 'Accusation',
+    text: `Edmund pauses. For the first time, something crosses his face that isn't the smile.
+
+"She died of old age," he says. "I simply... kept her company. The way a reflection keeps you company. She chose to stay. They always choose to stay. It's very flattering."
+
+He's closer now. You didn't see him move.
+
+"You can stay too. You'll be old one day. And I'll still be here. Still thirty. Still looking back at you."
+
+He extends a hand. It casts no shadow.`,
+    choices: [
+      { text: 'Throw the mirror-glass', next: 'ending_mirror_glass', condition: () => hasItem('mirror_glass') },
+      { text: 'Take his hand', next: 'ending_bad_edmund' },
+      { text: 'Smash the window — break the glass', next: 'ending_window_smash' },
+    ],
+  },
+
+  edmund_hammer: {
+    title: 'Strike',
+    text: `You swing the hammer at Edmund.
+
+It passes through him like he's water — like he's a reflection of a man rather than a man.
+
+He looks down at where the hammer passed through him. He looks up at you. He smiles wider.
+
+"That doesn't work," he says pleasantly. "I'm not here the way you're here."`,
+    choices: [
+      { text: 'Throw the mirror-glass', next: 'ending_mirror_glass', condition: () => hasItem('mirror_glass') },
+      { text: 'Run to the cellar', next: 'cellar_top' },
+    ],
+  },
+
+  guest_room: {
+    title: 'The Guest Room',
+    text: `The guest room is sparse but not abandoned. Someone stayed here recently — the bed is slept in, clothes folded on a chair.
+
+In the bedside drawer: a mobile phone, dead. And a charger. The plug socket on the wall is live — you plug it in and wait.
+
+The phone boots up. It belongs to someone named RYAN MARSH. His last text, three weeks ago, to a contact saved as "VERA": 
+
+<em>"I'm in the house. I think I understand now. I'm not leaving until I destroy it. Don't call the police. If you don't hear from me in 48 hours, send someone smart."</em>
+
+Vera replied: <em>"Be careful. Don't look at it."</em>
+
+There are no more texts.`,
+    choices: [
+      { text: 'Search the room more carefully', next: 'guest_room_search' },
+      { text: 'Take the phone and go to Vera\'s room', next: 'upstairs_landing', action: () => addItem('ryan_phone') },
+    ],
+  },
+
+  guest_room_search: {
+    title: 'Searching the Guest Room',
+    text: `Under the mattress: a field notebook belonging to Ryan Marsh. He was an investigator of some kind — the notebook is full of dates and observations.
+
+<em>"Day 3: It appears in reflective surfaces. Isn't limited to mirrors — caught it in the back of a spoon, a window at night, a puddle. Every reflective surface is a potential door."</em>
+
+<em>"Day 5: Vera confirmed — it's oldest mirror that created it. In the cellar. The others are secondary. Destroy the original and it all collapses. She's tried before but can't bring herself to do it. It wears Edmund's face. She loved Edmund."</em>
+
+<em>"Day 7: It knows I'm here. Last night it was in every reflection I passed. Looking. Waiting. I haven't slept in—"</em>
+
+The notebook ends there.`,
+    choices: [
+      { text: 'Take the notebook. Go find the cellar.', next: 'kitchen', action: () => { addItem('ryan_notebook'); addItem('ryan_phone'); } },
+    ],
+  },
+
+  cellar_top: {
+    title: 'The Cellar Stairs',
+    text: `The brass key turns in the padlock. The trapdoor lifts, and the smell of deep earth and cold stone rises up like an exhalation.
+
+Stone stairs lead down into darkness. Your phone's torch barely reaches the bottom.
+
+Vera's instructions echo: <em>Don't look at it directly. Use the mirror-glass. Destroy the original mirror.</em>
+
+You can hear, from below, the faint sound of something that might be breathing. Or might be the house settling.
+
+The choice is the same either way.`,
+    choices: [
+      { text: 'Descend into the cellar', next: 'cellar_main' },
+      { text: 'This is too much. I need to leave.', next: 'ending_try_leave' },
+    ],
+  },
+
+  cellar_main: {
+    title: 'The Cellar',
+    text: `The cellar is larger than it should be — the house above you couldn't contain this much space.
+
+Stone walls, bare earth floor, a single antique cabinet against the far wall. And in the centre of the room: a tall mirror in a black wooden frame. Victorian. Old. The glass is dark with age but perfectly intact.
+
+The reflection shows the cellar — empty, no you in it. As though the mirror refuses to acknowledge your presence.
+
+Then the reflection shifts. Edmund is in it. Standing exactly where you are, but in the mirror's version of the room. Looking at you. Smiling.
+
+<em>"You found it,"</em> the reflection says. Its mouth doesn't quite match the words.
+
+If you have the mirror-glass, you can end this. But you must not look at him directly while you do it.`,
+    choices: [
+      { text: 'Close your eyes and throw the mirror-glass at the old mirror', next: 'ending_victory', condition: () => hasItem('mirror_glass') },
+      { text: 'Look directly at Edmund in the mirror', next: 'ending_trapped' },
+      { text: 'Smash the mirror with the hammer without looking', next: 'ending_hammer_cellar', condition: () => hasItem('hammer') },
+      { text: 'Back up the stairs and run', next: 'ending_run' },
+    ],
+    onEnter: () => setFlag('reached_cellar'),
+  },
+
+  // ============================================================
+  // ENDINGS
+  // ============================================================
+
+  ending_victory: {
+    title: 'The End of Edmund',
+    text: `You close your eyes.
+
+You hear the bag tear. You feel the ground beneath your feet. You hear Edmund's voice from the mirror — calm, almost sad: <em>"Vera tried this too. She couldn't—"</em>
+
+You throw the glass.
+
+The sound is extraordinary — not a crash but a tone, a long vibrating note like a bell being rung inside your skull. The temperature drops twenty degrees. Something rushes past you, through you, like wind through a keyhole.
+
+Then silence.
+
+You open your eyes.
+
+The mirror is destroyed. Edmund is gone. The cellar is just a cellar — low, damp, ordinary.
+
+On the floor where the mirror stood: nothing. Not even glass. Just bare earth.
+
+You climb back upstairs. The grandfather clock in the entrance hall starts ticking. You step out into the night, lock the door behind you, and walk down the gravel path to the road.
+
+In the morning you'll call a solicitor. You'll sell the house. You'll never come back.
+
+You pass the gate. You don't look back.
+
+<em>There's nothing behind you that deserves to be seen.</em>
+
+━━━━━━━━━━━━━━━━━━━━━━━
+THE HOLLOWAY HOUSE
+Ending: The Mirror-Killer
+You destroyed Edmund and escaped.
+━━━━━━━━━━━━━━━━━━━━━━━`,
+    choices: [{ text: 'Play again', next: 'start' }],
+    isEnding: true,
+  },
+
+  ending_hammer_cellar: {
+    title: 'Blind Strike',
+    text: `You close your eyes and raise the hammer. You take three steps forward, counting from memory.
+
+You swing.
+
+The sound — that impossible tone — rings through you. But when you open your eyes, the mirror is only cracked. Not destroyed.
+
+Edmund's reflection is cracked too. He's looking at his fractured image with something like curiosity.
+
+<em>"Almost,"</em> he says. <em>"But not quite."</em>
+
+You swing again. And again. On the fourth blow — eyes squeezed shut — the tone rises to a shriek and breaks.
+
+When you open your eyes, the cellar is empty. Just you, a pile of old glass, and the smell of cold earth.
+
+You got out. It's enough.
+
+━━━━━━━━━━━━━━━━━━━━━━━
+THE HOLLOWAY HOUSE
+Ending: Blind Strike
+A hard-won escape.
+━━━━━━━━━━━━━━━━━━━━━━━`,
+    choices: [{ text: 'Play again', next: 'start' }],
+    isEnding: true,
+  },
+
+  ending_trapped: {
+    title: 'In the Glass',
+    text: `You look at Edmund.
+
+He looks back.
+
+And he smiles — a different smile now. Wider. Satisfied.
+
+<em>"There,"</em> he says. <em>"That's all it takes. Just look. Just keep looking."</em>
+
+You can't look away. You understand, now, why your aunt stayed. Why she kept looking. The reflection of yourself in his eyes is beautiful — young, perfect, frozen.
+
+You're still in the cellar. You will be for some time.
+
+The grandfather clock in the hall above you ticks three times and stops.
+
+━━━━━━━━━━━━━━━━━━━━━━━
+THE HOLLOWAY HOUSE
+Ending: In the Glass
+You are Edmund's now.
+━━━━━━━━━━━━━━━━━━━━━━━`,
+    choices: [{ text: 'Play again', next: 'start' }],
+    isEnding: true,
+  },
+
+  ending_bad_edmund: {
+    title: 'Staying',
+    text: `You take his hand. It's cold — cold and perfectly smooth, like glass.
+
+He smiles. The real smile, finally. Not practiced — relieved.
+
+<em>"Good,"</em> he says. <em>"She left. But you're here now. You'll stay."</em>
+
+It isn't a question.
+
+Outside, the fog closes over Holloway House. In a few years, the locals will say the new owner never left. They'll say the lights are sometimes on at night.
+
+They'll say sometimes, when you drive past, you can see two people in the upstairs window. Looking out.
+
+━━━━━━━━━━━━━━━━━━━━━━━
+THE HOLLOWAY HOUSE
+Ending: Staying
+You remained. Just as she did.
+━━━━━━━━━━━━━━━━━━━━━━━`,
+    choices: [{ text: 'Play again', next: 'start' }],
+    isEnding: true,
+  },
+
+  ending_run: {
+    title: 'Running',
+    text: `You run.
+
+Down the stairs, through the hall, out the front door. The gravel path seems longer in the dark. The gate seems farther. Your lungs burn.
+
+You reach the gate. You push through it. The road is empty, no cab, no phone signal, but you keep walking.
+
+Behind you, one light remains on in the house. The upstairs window. You don't look back.
+
+You walk for four miles to the nearest village. Your hands are shaking when you use the phone in the pub to call a taxi.
+
+You leave the key on the bar.
+
+You never claim the house. It sits empty for ten years until it's demolished. The wrecking crew finds the cellar.
+
+They find the mirror intact.
+
+━━━━━━━━━━━━━━━━━━━━━━━
+THE HOLLOWAY HOUSE
+Ending: Running
+You escaped. The mirror did not.
+━━━━━━━━━━━━━━━━━━━━━━━`,
+    choices: [{ text: 'Play again', next: 'start' }],
+    isEnding: true,
+  },
+
+  ending_leave: {
+    title: 'Leaving Before It Begins',
+    text: `You put the oilcloth bundle back in the trench. You cover it with soil. You walk back down the gravel path. You close the iron gate behind you.
+
+The house watches you go. The upstairs window, the one with the light, stays lit.
+
+You walk for an hour before your phone gets signal. You call a cab.
+
+You never tell anyone about the photograph, the journal pages, the message in the trench. You sell the house to a developer through the lawyer. You never ask what became of it.
+
+Some nights you dream of a man standing in a mirror, mouthing words you can't read.
+
+Some nights he's just the mirror.
+
+━━━━━━━━━━━━━━━━━━━━━━━
+THE HOLLOWAY HOUSE
+Ending: Leaving
+You got out before it began.
+━━━━━━━━━━━━━━━━━━━━━━━`,
+    choices: [{ text: 'Play again', next: 'start' }],
+    isEnding: true,
+  },
+
+  ending_try_leave: {
+    title: 'Trying to Leave',
+    text: `You head for the front door.
+
+It's locked.
+
+The key is in your pocket — you try it. It doesn't turn.
+
+You try the windows. Painted shut.
+
+You try the back door in the kitchen. The handle comes away in your hand.
+
+You stand in the entrance hall of Holloway House while the grandfather clock watches you with its stopped face. The house breathes around you.
+
+<em>The note on the gate said: Don't go in after dark.</em>
+
+You're in. It's dark.
+
+You'll have to go back and do what you came here to do.
+
+━━━━━━━━━━━━━━━━━━━━━━━
+THE HOLLOWAY HOUSE
+Ending: Trapped
+The house won't let you leave yet.
+━━━━━━━━━━━━━━━━━━━━━━━`,
+    choices: [
+      { text: 'Go back. Find the cellar.', next: 'front_door' },
+      { text: 'Start over', next: 'start' },
+    ],
+    isEnding: false,
+  },
+
+  ending_mirror_glass: {
+    title: 'The Moment',
+    text: `You don't look at him.
+
+You reach into the bag of mirror-glass, feel its impossible cold. Edmund is talking — something about how it never works, how she tried, how you'll stay —
+
+You throw the glass at his reflection.
+
+The sound that follows is the absence of sound. Every ambient noise — the house settling, your own breath, the blood in your ears — all of it simply stops.
+
+Then it returns, and Edmund is not in the mirror, and the mirror goes dark, and then cracks, and then falls in a cascade of old black glass that doesn't reflect you at all.
+
+You stand in the silent cellar for a long time.
+
+Then you climb the stairs, walk through the house, unlock the front door from the inside without any trouble, and walk out into the night.
+
+<em>The house behind you is just a house.</em>
+
+━━━━━━━━━━━━━━━━━━━━━━━
+THE HOLLOWAY HOUSE
+Ending: The Glass
+True ending. You ended it.
+━━━━━━━━━━━━━━━━━━━━━━━`,
+    choices: [{ text: 'Play again', next: 'start' }],
+    isEnding: true,
+  },
+
+};
+
+// ============================================================
+// RENDERING
+// ============================================================
+
+function renderStatusBar() {
+  const items = state.inventory;
+  if (items.length === 0) return '';
+  const labels = {
+    photograph: 'Photograph',
+    journal_pages: 'Journal pages',
+    red_key: 'Red key',
+    brass_key: 'Brass key',
+    hammer: 'Hammer',
+    mirror_glass: 'Mirror-glass',
+    herb_bundle: 'Herb bundle',
+    ryan_phone: "Ryan's phone",
+    ryan_notebook: "Ryan's notebook",
+    strange_photo: 'Strange photo',
+  };
+  return `<div id="status-bar">
+    ${items.map(i => `<span class="status-item on">${labels[i] || i}</span>`).join('')}
+  </div>`;
+}
+
+function navigate(id, action) {
+  if (action) action();
+  state.history.push(state.currentPassage);
+  state.currentPassage = id;
+  renderPassage(id);
+}
+
+function renderPassage(id) {
+  const passage = passages[id];
+  if (!passage) return;
+
+  if (passage.onEnter) passage.onEnter();
+
+  const main = document.getElementById('main-content');
+
+  if (passage.isTitle) {
+    main.innerHTML = `<div id="title-screen">
+      <h1 class="flicker">The Holloway House</h1>
+      <p class="subtitle"><em>A horror mystery in five rooms and a cellar</em></p>
+      <button class="start-btn" onclick="navigate('start')">Enter the House</button>
+    </div>`;
+    return;
+  }
+
+  const choices = (passage.choices || []).filter(c => !c.condition || c.condition());
+
+  const choiceHTML = choices.length > 0
+    ? `<div id="choices">${choices.map((c, i) =>
+        `<button class="choice-btn" onclick="handleChoice(${i})">${c.text}</button>`
+      ).join('')}</div>`
+    : `<p class="dead-end"><em>There is nowhere left to go.</em></p>`;
+
+  main.innerHTML = `<div id="passage-container">
+    ${renderStatusBar()}
+    <div id="passage-title">${passage.title}</div>
+    <div id="passage-text">${passage.text}</div>
+    ${choiceHTML}
+  </div>`;
+
+  window._currentChoices = choices;
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+
+function handleChoice(index) {
+  const choices = window._currentChoices;
+  if (!choices || !choices[index]) return;
+  const choice = choices[index];
+  navigate(choice.next, choice.action);
+}
+
+// Start
+renderPassage('__title');
+</script>
+</body>
+</html>
