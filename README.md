@@ -97,13 +97,12 @@ There are eight endings. Some are dead ends, some are escapes, and one is the tr
 - Built using Twine 2 Harlowe 3.3.7 format
 - Inventory is tracked using a Harlowe array variable called $inventory
 - Story flags are tracked using a Harlowe datamap called $flags
-- Images load from Unsplash (photos) and Giphy (animated GIFs) — an internet connection is required for these to display, but the game is fully playable without them
 - The game has no save system and runs entirely in a single browser session
 
 ---
 
 ## Credits
 
-Written and designed by Aaron Sermon
+Written and designed by Aaron Sermon & Claude AI
 
 Built with Twine 2 — twinery.org
