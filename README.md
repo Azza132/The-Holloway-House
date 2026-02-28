@@ -31,7 +31,7 @@ If you want to view and edit the full branching structure:
 
 ## Files Included
 
-- holloway_house_twine.html — The Twine 2 importable version with images and GIFs
+- holloway_house_twine.html — The Twine 2 importable version.
 - the_holloway_house.html — The original styled standalone version
 - README.md — This file
 
