@@ -103,6 +103,6 @@ There are eight endings. Some are dead ends, some are escapes, and one is the tr
 
 ## Credits
 
-Written and designed by Aaron Sermon & Claude AI
+Written and designed by Aaron Sermon.
 
 Built with Twine 2 — twinery.org
